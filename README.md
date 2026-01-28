@@ -82,7 +82,7 @@ The validator operations layer is built and running in production:
 |---------|-------------|--------|
 | [solana-repro-builds](https://github.com/angpenghian/solana-repro-builds) | Reproducible builds + release pipeline for Agave, Jito, Firedancer | ✅ Live  |
 | [solana-ansible-kit](https://github.com/angpenghian/solana-ansible-kit) | Fleet provisioning, OS hardening, validator deploys, upgrades | ✅ Live |
-| [solana-exporter](https://github.com/angpenghian/solana-exporter) | Prometheus exporter — 26+ metrics, Grafana dashboard, production tested | ✅ Live |
+| [solana-exporter](https://github.com/angpenghian/solana-exporter) | Prometheus exporter — 30+ metrics, Grafana dashboard, production tested | ✅ Live |
 
 ### Roadmap
 
