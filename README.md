@@ -55,7 +55,7 @@ Building a Solana staking operation from scratch — solo founder handling every
 │  │ builds + release │  │ OS hardening     │  │ metrics +        │ │
 │  │ Agave, Jito,     │  │ Client deploys   │  │ Grafana          │ │
 │  │ Firedancer       │  │ Upgrades/rollback│  │ dashboards       │ │
-│  │                  │  │                  │  │ 26+ metrics      │ │
+│  │                  │  │                  │  │ 30+ metrics      │ │
 │  │ ✅ Live          │  │ ✅ Live         │  │ ✅ Live         │ │
 │  └──────────────────┘  └──────────────────┘  └──────────────────┘ │
 │                                 ▼                                 │
