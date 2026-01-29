@@ -56,13 +56,13 @@ Building a Solana staking operation from scratch — solo founder handling every
 │  │ Agave, Jito,     │  │ Client deploys   │  │ Grafana          │ │
 │  │ Firedancer       │  │ Upgrades/rollback│  │ dashboards       │ │
 │  │                  │  │                  │  │ 26+ metrics      │ │
-│  │ ✅ Live          │  │ ✅ Live         │  │ ✅ Live         │ │
+│  │ ✅ Live          │  │ ✅ Live          │  │ ✅ Live          │ │
 │  └──────────────────┘  └──────────────────┘  └──────────────────┘ │
 │                                 ▼                                 │
 │  OBSERVABILITY                                                    │
 │  ┌──────────────────────────────────────────────────────────────┐ │
 │  │ Prometheus + Grafana    Logging (Loki/ELK)    Alerting       │ │
-│  │ ✅ Live                 Planned               PagerDuty     │ │
+│  │ ✅ Live                 Planned               PagerDuty      │ │
 │  │                                               Planned        │ │
 │  └──────────────────────────────────────────────────────────────┘ │
 │                                 ▼                                 │
