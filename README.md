@@ -30,7 +30,7 @@ Building a Solana validator operation from scratch — solo founder handling eve
 │  │ Agave, Jito,     │  │ Client deploys   │  │ Grafana          │ │
 │  │ Firedancer       │  │ Upgrades/rollback│  │ dashboards       │ │
 │  │                  │  │                  │  │ 30+ metrics      │ │
-│  │ ✅ Live          │  │ ✅ Live         │  │ ✅ Live          │ │
+│  │ ✅ Live          │  │ ✅ Live          │  │ ✅ Live          │ │
 │  └──────────────────┘  └──────────────────┘  └──────────────────┘ │
 │                                 │                                 │
 │                                 ▼                                 │
