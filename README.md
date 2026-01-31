@@ -1,52 +1,26 @@
 ## Hey, I'm Peng Hian
 
-Building a Solana staking operation from scratch — solo founder handling everything from bare metal to frontend.
+Building a Solana validator operation from scratch — solo founder handling everything from bare metal to monitoring.
 
-### Full Stack Architecture
+### Architecture
 
 ```
 ┌───────────────────────────────────────────────────────────────────┐
-│                     Solana Staking Platform                       │
+│                     Solana Validator Operation                    │
 ├───────────────────────────────────────────────────────────────────┤
 │                                                                   │
-│  FRONTEND                                                         │
-│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐ │
-│  │ Staking Portal   │  │ Validator        │  │ Admin            │ │
-│  │ Next.js          │  │ Analytics        │  │ Dashboard        │ │
-│  │                  │  │ React            │  │ Fleet mgmt       │ │
-│  │ Planned          │  │ Planned          │  │ Planned          │ │
-│  └──────────────────┘  └──────────────────┘  └──────────────────┘ │
-│                                 ▼                                 │
-│  BACKEND                                                          │
-│  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐ │
-│  │ Staking API      │  │ Rewards Engine   │  │ Auth + Billing   │ │
-│  │ Delegation mgmt  │  │ Epoch tracking   │  │ API keys         │ │
-│  │ Validator pool   │  │ Payout calc      │  │ Usage metering   │ │
-│  │ Planned          │  │ Planned          │  │ Planned          │ │
-│  └──────────────────┘  └──────────────────┘  └──────────────────┘ │
-│                                 ▼                                 │
-│  INFRASTRUCTURE + DEVOPS                                          │
-│  ┌──────────────────────────────────────────────────────────────┐ │
-│  │                                                              │ │
-│  │  Cloud + Networking          CI/CD + Release                 │ │
-│  │  ┌──────────────────────┐    ┌──────────────────────────┐    │ │
-│  │  │ Terraform (IaC)      │    │ GitHub Actions           │    │ │
-│  │  │ AWS / bare metal     │    │ Build → Test → Deploy    │    │ │
-│  │  │ VPC, firewall, DNS   │    │ Artifact verification    │    │ │
-│  │  │ Planned              │    │ Planned                  │    │ │
-│  │  └──────────────────────┘    └──────────────────────────┘    │ │
-│  │                                                              │ │
-│  │  Security                    Secrets + Config                │ │
-│  │  ┌──────────────────────┐    ┌──────────────────────────┐    │ │
-│  │  │ Hardened SSH         │    │ HashiCorp Vault          │    │ │
-│  │  │ fail2ban, UFW        │    │ Validator keys           │    │ │
-│  │  │ Audit logging        │    │ API secrets, certs       │    │ │
-│  │  │ Done (ansible-kit)   │    │ Planned                  │    │ │
-│  │  └──────────────────────┘    └──────────────────────────┘    │ │
-│  │                                                              │ │
-│  └──────────────────────────────────────────────────────────────┘ │
-│                                 ▼                                 │
-│  VALIDATOR OPERATIONS                                             │
+│  DELEGATION (how stakers find you)                                │
+│  ┌──────────────────┐  ┌──────────────────┐                       │
+│  │ validators.app   │  │ Landing Page     │                       │
+│  │ stakewiz.com     │  │ (your website)   │                       │
+│  │ Free listings    │  │ Planned          │                       │
+│  └──────────────────┘  └──────────────────┘                       │
+│           │                    │                                  │
+│           └────────────────────┘                                  │
+│                    │                                              │
+│                    │ Delegators stake via wallet (Phantom, etc.)  │
+│                    ▼                                              │
+│  VALIDATOR OPERATIONS (what you build + run)                      │
 │  ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐ │
 │  │ solana-repro-    │  │ solana-ansible-  │  │ solana-          │ │
 │  │ builds           │  │ kit              │  │ exporter         │ │
@@ -58,45 +32,49 @@ Building a Solana staking operation from scratch — solo founder handling every
 │  │                  │  │                  │  │ 30+ metrics      │ │
 │  │ ✅ Live          │  │ ✅ Live          │  │ ✅ Live          │ │
 │  └──────────────────┘  └──────────────────┘  └──────────────────┘ │
+│                                 │                                 │
 │                                 ▼                                 │
-│  OBSERVABILITY                                                    │
+│  MONITORING                                                       │
 │  ┌──────────────────────────────────────────────────────────────┐ │
-│  │ Prometheus + Grafana    Logging (Loki/ELK)    Alerting       │ │
-│  │ ✅ Live                 Planned               PagerDuty      │ │
-│  │                                               Planned        │ │
+│  │ Prometheus + Grafana ✅    Alerting (PagerDuty) Planned      │ │
 │  └──────────────────────────────────────────────────────────────┘ │
+│                                 │                                 │
 │                                 ▼                                 │
-│  BARE METAL / CLOUD                                               │
+│  INFRASTRUCTURE                                                   │
 │  ┌──────────────────────────────────────────────────────────────┐ │
 │  │ Validator servers (dedicated hardware)                       │ │
 │  │ Solana clients: Agave, Jito, Firedancer                      │ │
+│  │ Security: SSH hardening, fail2ban, UFW (via ansible-kit)     │ │
 │  └──────────────────────────────────────────────────────────────┘ │
 └───────────────────────────────────────────────────────────────────┘
 ```
 
+### How Solana Delegation Works
+
+1. You run a validator with a **vote account**
+2. Stakers delegate SOL to your vote account using any wallet
+3. Rewards are automatic — stakers get their share, you take commission
+4. No backend needed — delegation happens on-chain
+
 ### Live Repositories
 
-The validator operations layer is built and running in production:
+The validator operations layer is built and running:
 
 | Project | What it does | Status |
 |---------|-------------|--------|
-| [solana-repro-builds](https://github.com/angpenghian/solana-repro-builds) | Reproducible builds + release pipeline for Agave, Jito, Firedancer | ✅ Live  |
+| [solana-repro-builds](https://github.com/angpenghian/solana-repro-builds) | Reproducible builds + release pipeline for Agave, Jito, Firedancer | ✅ Live |
 | [solana-ansible-kit](https://github.com/angpenghian/solana-ansible-kit) | Fleet provisioning, OS hardening, validator deploys, upgrades | ✅ Live |
-| [solana-exporter](https://github.com/angpenghian/solana-exporter) | Prometheus exporter — 30+ metrics, Grafana dashboard, production tested | ✅ Live |
+| [solana-exporter](https://github.com/angpenghian/solana-exporter) | Prometheus exporter — 30+ metrics, Grafana dashboard | ✅ Live |
 
 ### Roadmap
 
-| Layer | What | Status |
-|-------|------|--------|
-| Validator Ops | Build, deploy, monitor validators | ✅ Done |
-| CI/CD | GitHub Actions across all repos | Next |
-| Infrastructure | Terraform for cloud/network provisioning | Planned |
-| Secrets | HashiCorp Vault for key management | Planned |
-| Logging | Centralized log aggregation (Loki or ELK) | Planned |
-| Alerting | PagerDuty/Slack incident routing | Planned |
-| Backend | Staking API, rewards engine, delegation management | Planned |
-| Frontend | Staking portal, validator analytics, admin dashboard | Planned |
+| What | Status |
+|------|--------|
+| Validator operations (build, deploy, monitor) | ✅ Done |
+| CI/CD (GitHub Actions) | Next |
+| Landing page for delegators | Planned |
+| Alerting (PagerDuty/Slack) | Planned |
 
 ### Background
 
-Solo founder building a Solana staking operation. Started from the infrastructure layer up — validator builds, fleet automation, and monitoring are live. Now working upward through CI/CD, cloud provisioning, and eventually the staking platform itself.
+Solo founder running a Solana validator. Built the infrastructure layer first — secure builds, fleet automation, and monitoring. Now focused on operational maturity (CI/CD, alerting) before scaling.
